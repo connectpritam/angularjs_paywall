@@ -1,0 +1,92 @@
+
+  body {
+    /* The image used */
+    height: 800px;
+    background-color: beige;
+  
+  }
+  .bg-image{
+    background-image: url('background.jpg');
+    filter: blur(4px);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .cta-btn {
+    background-color: rgb(69, 69, 185);
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 18px 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+  }
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    background-color: #ffff;
+    padding: 40px;
+    padding: 1.8rem;
+    margin-top: 5rem;
+    color: black;
+    box-sizing: border-box; 
+    box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.1);
+    border: 3px solid #f1f1f1;
+    font-family: sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    
+  }
+
+.card h2{
+    margin: 0 0 40px;
+    color: gray;
+
+}
+.card input{
+    padding: 10px 0;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: flex-start;
+    width: 90%;
+    box-sizing: border-box;
+    border: none;
+    outline: none; 
+    border-bottom: 2px solid #c9c7c7;
+}
+.card form div{
+    position: relative;
+}
+.card form div label{
+    position: absolute;
+    top:12px;
+    left: -1px;
+    font-family: sans-serif;
+    color: rgb(97, 97, 97);
+    pointer-events: none;
+}
+.card input:focus ~ label,.card input:valid ~ label
+{
+    top:-12px;
+    font-size: 11px;
+    color: blue;
+    outline: none;
+    transition: 0.3s ease all;
+    font-weight: bold; 
+}
+.card input:focus,.card input:valid
+{ 
+    border-bottom: 2px solid rgb(148, 132, 163);
+    outline: none;
+    transition: 0.3s ease all;
+}
+a{
+    text-decoration: none;
+}
