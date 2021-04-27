@@ -13,6 +13,14 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  .mismatch{
+  display: none;
+  color: red;
+  font-size: 12px;
+  text-align: left;
+  position: relative;
+  top:-8px;
+  }
   .cta-btn {
     background-color: rgb(69, 69, 185);
     color: white;

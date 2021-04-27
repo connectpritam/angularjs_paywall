@@ -16,29 +16,33 @@
 <body>
   
         <div class="bg-image"></div>
-        <div class="card">
+        <div class="card" ng-controller="sampleController">
                
                 <h2 > Let's join you in </h2>
                 <form>
                     <div>
-                        <input type="text" name=""  required="">
+                        <input type="text" name=""  required>
                         <label>Name * </label>
                     </div>
                     <div >
-                        <input type="text"   name="" required=""  >
+                        <input type="text" ng-model="email" ng-keyup="emailCheck()"  required >
                         <label>E-Mail *</label>
+                        <div class="mismatch" id="email_mismatch">*enter valid email</div>
                     </div>
                     <div >
-                        <input type="text"  name="" required="">
+                        <input type="text" id="no" ng-model="phone" ng-keyup="checkPhone()"  required>
                         <label>Phone-No *</label>
+                        <div class="mismatch" id="phone_mismatch">*enter valid phone #</div>
                     </div>
                     <div >
-                        <input type="password"  name="" required="">
-                        <label>Password *</label>              
+                        <input type="password" id="pass" ng-keyup="check_pass_strength()" required  ng-model="pass">
+                        <label>Password *</label>  
+                        <div class="mismatch" id="pass_mismatch">must be min 8 chars,1 letter & 1 number</div>            
                     </div> 
                     <div >
-                        <input type="text"  name="" required="">
-                        <label>Confirm Password *</label>              
+                        <input type="password" id="confirmpass" ng-model="confirmpass"   ng-keyup="checkPass()"  required>
+                        <label>Confirm Password *</label>
+                        <div class="mismatch" id="pwd_mismatch">*The passwords do not match</div>              
                     </div> 
                     <button class="cta-btn">Sign Up</button>
                     <p >Already have an account? <a href="index.html"> Sign In</a></p>                       
