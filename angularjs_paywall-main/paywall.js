@@ -51,9 +51,11 @@ _p.controller('sampleController', function ($scope,$window,$sce,$location) {
     $("#email").val(localStorage.getItem('email'))
   
    };
-      
-  }
   
+  }
+  $scope.signup=  function(){
+    $window.location.href = '/subscription.html'; 
+  }
   /*
   const form = document.getElementById('signupForm');
   if(form!==undefined){
