@@ -1,40 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="paywall">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-signin-client_id" content="360407372827-tf1phfik9srs1e21oj8ve2q20eh8bp5u.apps.googleusercontent.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AngularJS Paywall</title>
+    <link rel="stylesheet" href="stylesignup.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="paywall.js"></script>
-    <link rel="stylesheet" href="stylesignup.css">
 </head>
-<body>
-  
-        <div class="bg-image"></div>
-        <div class="card" ng-controller="sampleController">
-            <div class="social-login">
-                <button class="fb-btn">
-                      <div class="g-signin2" >
-                         
-                        </div>
-                </button>        
-             </div>
-       
-             <p class="or"><span>or</span></p>
+<body ng-app="paywall" >
+        <div class="cards" ng-app="paywall" ng-controller="sampleController">
                 <h2 > Let's join you in </h2>
                 
                 <form id='signupForm'>
                     <div>
-                        <input type="text" name=""  required>
+                        <input type="text" id="name" name=""  required>
                         <label>Name * </label>
                     </div>
                     <div >
-                        <input type="text" ng-model="email" ng-keyup="emailCheck()"  required >
+                        <input type="text" id="email" ng-model="email" ng-keyup="emailCheck()"  required id="result" >
                         <label>E-Mail *</label>
                         <div class="mismatch" id="email_mismatch">*enter valid email</div>
                     </div>
@@ -43,21 +22,12 @@
                         <label>Phone-No *</label>
                         <div class="mismatch" id="phone_mismatch">*enter valid phone #</div>
                     </div>
-                    <div >
-                        <input type="password" id="pass" ng-keyup="check_pass_strength()" required  ng-model="pass">
-                        <label>Password *</label>  
-                        <div class="mismatch" id="pass_mismatch">must be min 8 chars,1 letter & 1 number</div>            
-                    </div> 
-                    <div >
-                        <input type="password" id="confirmpass" ng-model="confirmpass"   ng-keyup="checkPass()"  required>
-                        <label>Confirm Password *</label>
-                        <div class="mismatch" id="pwd_mismatch">*The passwords do not match</div>              
-                    </div> 
-                    <button class="cta-btn">Sign Up</button>
-                    <p >Already have an account? <a href="index.html"> Sign In</a></p>                       
+ 
+                    <button class="cta-btn"  ng-keyup="signup()">Sign Up</button>
+                                      
                 </form>     
             </div>
                
             
-            
+            <script src="paywall.js"></script>    
 </body>

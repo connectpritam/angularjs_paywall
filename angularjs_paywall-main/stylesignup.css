@@ -5,14 +5,7 @@
     background-color: beige;
   
   }
-  .bg-image{
-    background-image: url('background.jpg');
-    filter: blur(4px);
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+
   .mismatch{
   display: none;
   color: red;
@@ -50,9 +43,9 @@
     border: none
   }
   
-  .card {
+  .cards {
     position: absolute;
-    top: 50%;
+    top: 34%;
     left: 50%;
     width: 400px;
     transform: translate(-50%, -50%);
@@ -67,17 +60,20 @@
     font-family: sans-serif;
     text-align: center;
     border-radius: 10px; 
+    font-size: medium;
   }
+  
 
-.card h2{
-    margin: 0 0 40px;
+.cards h2{
+    margin: 20px 0 40px;
     color: gray;
 
 }
-.card input{
+.cards input{
     padding: 10px 0;
     margin-bottom: 25px;
     display: flex;
+    font-size: medium;
     align-items: flex-start;
     width: 90%;
     box-sizing: border-box;
@@ -87,10 +83,10 @@
     font-family: sans-serif;
     border-bottom: 2px solid #c9c7c7;
 }
-.card form div{
+.cards form div{
     position: relative;
 }
-.card form div label{
+.cards form div label{
     position: absolute;
     top:12px;
     left: -1px;
@@ -98,27 +94,17 @@
     color: rgb(97, 97, 97);
     pointer-events: none;
 }
-.or {
-  text-align: center;
-  font-weight: bold;
-  border-bottom: 2px solid rgb(245 239 239);
-  line-height: 0.1em;
-  margin: 25px 0;
-}
-.or span {
-  background: #fff;
-  padding: 0 10px;
-}
-.card input:focus ~ label,.card input:valid ~ label
+
+.cards input:focus ~ label,.cards input:valid ~ label
 {
     top:-12px;
     font-size: 12px;
-    color: blue;
-    outline: none;
+    color: rgb(20, 20, 199);
+    outline: none;      
     transition: 0.3s ease all;
     font-weight: bold; 
 }
-.card input:focus,.card input:valid
+.cards input:focus,.cards input:valid
 { 
     border-bottom: 2px solid rgb(148, 132, 163);
     outline: none;
