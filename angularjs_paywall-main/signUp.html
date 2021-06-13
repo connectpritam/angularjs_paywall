@@ -1,33 +1,30 @@
+
+<html lang="en">
 <head>
     <link rel="stylesheet" href="stylesignup.css">
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
-<body ng-app="paywall" >
-        <div class="cards" ng-app="paywall" ng-controller="sampleController">
+        <div class="cards"   data-ng-init="init()"  ng-controller="signUpController">
                 <h2 > Let's join you in </h2>
                 
-                <form id='signupForm'>
+                <form id='signupForm' >
                     <div>
                         <input type="text" id="name" name=""  required>
                         <label>Name * </label>
                     </div>
                     <div >
-                        <input type="text" id="email" ng-model="email" ng-keyup="emailCheck()"  required id="result" >
+                        <input type="text" id="signUpEmail" ng-model="email" ng-keyup="emailCheck()"  required >
                         <label>E-Mail *</label>
                         <div class="mismatch" id="email_mismatch">*enter valid email</div>
                     </div>
                     <div >
                         <input type="text" id="no" ng-model="phone" ng-keyup="checkPhone()"  required>
-                        <label>Phone-No *</label>
+                        <label>Phone-No *</label>   
                         <div class="mismatch" id="phone_mismatch">*enter valid phone #</div>
                     </div>
  
-                    <button class="cta-btn"  ng-click="signup()">Sign Up</button>
-                                      
-                </form>     
+                    <button class="cta-btn"  ng-click="subscriptionRoute()">Sign Up</button>
+                    <div class="mismatch" id="phone_present">Phone No is already in use</div>         
+                </form> 
+                    
             </div>
-               
             
-            <script src="paywall.js"></script>    
-</body>

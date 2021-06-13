@@ -9,6 +9,14 @@ body {
   a {
     text-decoration: none;
   }
+  .mismatch{
+    display: none;
+    color: red;
+    font-size: 13px;
+    text-align: left;
+    position: relative;
+    top:-8px;
+    }
   .card {
     background-color: rgb(77, 45, 45);
     color: black;

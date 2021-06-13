@@ -1,28 +1,94 @@
-// module _p
-var _p = angular.module('paywall', [
-    // our dependencies will be injected here
-]);
+// module app
+var app = angular.module('paywall',  ['ngRoute'])
+
+app.config(function ($routeProvider, $locationProvider)
+ {  
+    $locationProvider.html5Mode(true);
+    $routeProvider.
+    when('/', 
+    {  
+        resolve:{
+            check:function($location,$rootScope){
+                
+                $rootScope.isAccountPresent=false
+                if( $rootScope.isAccountPresent)
+                {   
+                    //$rootScope.isLoggedin='true'
+                   $location.path('/home/')
+                }
+                else{
+                    console.log('2')
+                    $location.path('/signIn/')
+                }
+               
+            }
+        },
+        template: 'index.html'
+     }) .
+     when('/home/', 
+     {  
+         
+          resolve:{
+            remove:function(){
+                console.log('entering resolve funciton');
+                $("#modal").remove();  
+                 $(".mainwrapper").css({"opacity":"1"})
+            }
+        }, 
+        template: '',
+          controller: 'homeController' 
+      }) .
+    when('/signUp/', 
+   {  
+        templateUrl: 'signUp.html',  
+        controller: 'signUpController'  
+    }) .
+    when('/signIn/', 
+    {  
+         templateUrl: 'login.html',  
+         controller: 'signInController'  
+     }) .
+    when('/subscription/', 
+    {  
+         templateUrl: 'subscription.html',  
+        // controller: 'sampleController'  
+     }).otherwise({
+        redirectTo: '/',
+    })
+})  
+
 
 // controllers
-_p.controller('sampleController', function ($scope,$window,$sce,$location) {
+app.controller('signUpController', function ($scope,$rootScope,$location,$http) {
     $scope.isSuccess=false  
     $scope.phoneSucess=false
     $scope.emailSucess=false
+    $scope.init=function() {
+        //var signedIn=localStorage.getItem('signedIn')
+            $(".mainwrapper").css({"cursor":"none","opacity":"0.2","background":"blue"})
+       
+    };
+    
+     
+   
+    if(localStorage.getItem('name')||localStorage.getItem('email')){
 
-      $scope.emailCheck =function(){
+        $("#name").val(localStorage.getItem('name'))
+        $("#signUpEmail").val(localStorage.getItem('email'))
+    }
+    
+    $scope.emailCheck =function(){
        
             if(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($scope.email)){
-            
+                
                 $("#email_mismatch").hide()
                 $scope.emailSucess=true
             }
             else{
-                $("#email_mismatch").show()
-                
+                $("#email_mismatch").show()  
             }
         }
-     
-      $scope.checkPhone= function (){
+    $scope.checkPhone= function (){
        
          if(/^[0-9]{10,10}$/.test($scope.phone)){
             $("#phone_mismatch").hide()
@@ -33,62 +99,76 @@ _p.controller('sampleController', function ($scope,$window,$sce,$location) {
          }
        }
 
-     $scope.loginCheck=  function(){
-        //e.preventDefault()
-        var isAccountPresent=false
-        var isSubscriptionDone=true
-  if(isAccountPresent && isSubscriptionDone){
-      $(".mainwrapper").css({"opacity":"1"})
-      $("#overlay").fadeOut(500)
-  }
-  if(isAccountPresent && !isSubscriptionDone){
-    $(".login").load('subscription.html')
-  }
-  else{
-    $window.location.href = '/signUp.html';
-    //$location.url('/SignUp.html')
-    $("#name").val(localStorage.getItem('name'))
-    $("#email").val(localStorage.getItem('email'))
-  
-   };
-  
-  }
-  $scope.signup=  function(){
-    $window.location.href = '/subscription.html'; 
-  }
-  /*
-  const form = document.getElementById('signupForm');
-  if(form!==undefined){
-  form.addEventListener('submit', e => {
-   e.preventDefault();
-   $scope.isSuccess= $scope.phoneSucess &&  $scope.emailSucess
-   if($scope.isSuccess){
-       console.log($scope.phone,$scope.email)
-   }
-   else{
-       console.log('err')
-   }
-})
-}
-*/
+    $scope.subscriptionRoute=function(){
+
+        //ajax call here to server to check for phone no already present 
+
+        //on success ajax call to server to post form contents
+
+        //route to subscription page
+        if( $scope.phoneSucess&& $scope.emailSucess){
+            $location.path('/subscription')
+        }
+       
+    }
+    })
 
 
-});
+app.controller('signInController',function ($scope,$rootScope,$location,$http){
 
+    $scope.init=function() {
+        //var signedIn=localStorage.getItem('signedIn')
+        //$rootScope.isAccountPresent=false
+        if(!$rootScope.isAccountPresent){
+            $(".mainwrapper").css({"cursor":"none","opacity":"0.2","background":"blue"})
+        } 
+        else{
+            $(".mainwrapper").css({"opacity":"1"})
+        }
+        
+       
+    };
 
-gapi.load('auth2', function(){
-    gapi.auth2.init()
-})
-
-
-$( document ).ready(function() {
-    //var signedIn=localStorage.getItem('signedIn')
-    var signedIn= 'false'
-    if(signedIn==='false'){
-        $(".mainwrapper").css({"cursor":"none","opacity":"0.2","background":"blue"})
-    }   
+    //ajax call to check is account present
    
-});
+    $scope.loginCheck=function(){  
+        $rootScope.isSubscritonpresent=true
+        $rootScope.isAccountPresent=false
+    if(!$rootScope.isAccountPresent){
+        $location.path('/signUp/')
+      console.log('hey');
+    }
+    
+    if($rootScope.isAccountPresent && !$rootScope.isSubscritonpresent ){
+        $location.path('/subscription/')
+        console.log('hi')
+    }
+    if($rootScope.isAccountPresent && $rootScope.isSubscritonpresent ){
+        $rootScope.isAccountPresent=true
+        localStorage.setItem('isLoggedIn','true')
+        console.log('hello');
+        $location.path('/home/')
+    }
+    
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+//google API
+
+
+// gapi.load('auth2', function(){
+//     gapi.auth2.init()
+// })
 
 
 function onSignIn(googleUser) {
@@ -96,16 +176,9 @@ function onSignIn(googleUser) {
     $("#uname").val(profile.getEmail())
     localStorage.setItem('name',profile.getName())
     localStorage.setItem('email',profile.getEmail())
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); 
-    // This is null if the 'email' scope is not present.
-    
   }
  
     
   
 
  
-// controller-functions
