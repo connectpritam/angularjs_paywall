@@ -109,6 +109,9 @@ app.controller('signUpController', function ($scope,$rootScope,$location,$http) 
         if( $scope.phoneSucess&& $scope.emailSucess){
             $location.path('/subscription')
         }
+        else{
+            $('#signUp').attr('disabled',true)
+        }
        
     }
     })
