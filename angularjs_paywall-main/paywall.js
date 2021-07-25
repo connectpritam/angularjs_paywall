@@ -10,14 +10,21 @@ app.config(function ($routeProvider, $locationProvider)
         resolve:{
             check:function($location,$rootScope){
                 
-                $rootScope.isAccountPresent=false
+                $rootScope.isAccountPresent=localStorage.getItem('isAccountPresent')?true:false
                 if( $rootScope.isAccountPresent)
                 {   
                     //$rootScope.isLoggedin='true'
                    $location.path('/home/')
                 }
                 else{
-                    $location.path('/signIn/')
+                    if(!isCookieEnabled()){
+                        alert('Please enable cookies to continue.')
+                       
+                    }
+                    else{
+                        $location.path('/signIn/')
+                    }
+                   
                 }
                
             }
@@ -82,6 +89,7 @@ app.controller('signUpController', function ($scope,$rootScope,$location,$http,$
                 $('#phone_present').hide()
                 $scope.emailSucess=true
                 $('#signUp').attr('disabled',false)
+                $('#signUp').css({'cursor':'default','opacity':'1'})
             }
             else{
                 $("#email_mismatch").show()  
@@ -94,6 +102,7 @@ app.controller('signUpController', function ($scope,$rootScope,$location,$http,$
              $scope.phoneSucess=true
              $('#phone_present').hide()
              $('#signUp').attr('disabled',false)
+             $('#signUp').css({'cursor':'default','opacity':'1'})
          }
          else{  
             $("#phone_mismatch").show()
@@ -109,20 +118,10 @@ app.controller('signUpController', function ($scope,$rootScope,$location,$http,$
         //route to subscription page
         $('.loader').show()
         $('#signUp').attr('disabled',true)
+        $('#signUp').css({'cursor':'not-allowed','opacity':'0.3'})
         $('#phone_present').hide()
         if( $scope.phoneSucess&& $scope.emailSucess){
            
-           /*
-            $http({
-                url: 'https://uttarbangasambad.in/api/users/register.php',
-                method: "POST",
-                data:$.param({
-                   
-                    
-                }),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            */
             var configs = { cache: false };
             var payload = {
                 name: $("#name").val(),
@@ -132,11 +131,14 @@ app.controller('signUpController', function ($scope,$rootScope,$location,$http,$
       
       // The Method Post is generally used with a payload,
       configs.params = payload;
+      configs.headers={'Content-Type':'text/plain'}
             $http.post('https://uttarbangasambad.in/api/users/register.php', null /* but normally payload */, configs)
             .then(function successCallback(response) {
                 console.log(response)
                   if( response.status==200){
                     $('#signUp').attr('disabled',false)
+                    $('#signUp').attr('cursor','default')
+                    $('.loader').hide()
                     $rootScope.isAccountPresent=true
                     $location.path('/subscription/')
                   }
@@ -154,6 +156,7 @@ app.controller('signUpController', function ($scope,$rootScope,$location,$http,$
         }
         else{
             $('#signUp').attr('disabled',true)
+            $('#signUp').css({'cursor':'not-allowed','opacity':'0.3'})
         }
        
     }
@@ -221,7 +224,17 @@ function onSignIn(googleUser) {
     localStorage.setItem('name',profile.getName())
     localStorage.setItem('email',profile.getEmail())
   }
- 
+  
+function isCookieEnabled(){
+
+    var  _iscookieenabled = navigator.cookieEnabled?true:false
+
+    if(!_iscookieenabled || typeof(_iscookieenabled)==undefined){
+        document.cookie="sampleCookie"
+        _iscookieenabled=(document.cookie.indexOf('sampleCookie')!=-1)?true:false
+    }
+    return _iscookieenabled
+}
     
   
 
